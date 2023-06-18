@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="pagetitle">
+    <h1>Accounts</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item active">Accounts</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+    <div class="row">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% if "error" in messages[0] %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{messages[0]}}
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{messages[0]}}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endwith %}
+        <div class="col-sm-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Accounts</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+                        <i class="bi bi-plus"></i>
+                        New
+                    </button>
+                    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                        <div class="dataTable-container">
+                            <table class="table table-borderless datatable dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fullname</th>
+                                        <th>Account</th>
+                                        <th>Phone</th>
+                                        <th>Balance</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for acc in accounts %}
+                                        <tr>
+                                            <td>{{ acc.fname }} {{ acc.lname }}</td>
+                                            <td>
+                                                {{ acc.accnum }}
+                                            </td>
+                                            <td>
+                                                {{ acc.phone }}
+                                            </td>
+                                            <td>
+                                                ${{ acc.balance }}
+                                            </td>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="POST" action="">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Account</h5>
+                <button type="button" class="btn-close" style="float: right;" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Firstname</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="fname" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Lastname</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="lname" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Phone</label>
+                    <div class="col-sm-10">
+                        <input type="tel" name="phone" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Pin</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="pin" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save account</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}

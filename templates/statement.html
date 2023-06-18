@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+                <!-- BEGIN INVOICE -->
+              <div class="col-xs-12">
+                <div class="grid invoice">
+                  <div class="grid-body">
+                    <div class="invoice-title">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <img src="http://vergo-kertas.herokuapp.com/assets/img/logo.png" alt="" height="35">
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h2>Account Statement<br></h2>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <address>
+                          <strong>Account Details:</strong><br>
+                          {{name}}.<br>
+                          {{phone}}<br>
+                          <abbr title="Phone">P:</abbr>{{phone}}
+                        </address>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <address>
+                          <strong>Request Method:</strong><br>
+                          WhatsApp Bot<br>
+                          {{phone}}<br>
+                        </address>
+                      </div>
+                      <div class="col-xs-6 text-right">
+                        <address>
+                          <strong>Date:</strong><br>
+                          {{current_dateTime}}
+                        </address>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h3>ORDER SUMMARY</h3>
+                        <table class="table table-striped">
+                          <thead>
+                            <tr class="line">
+                              <td><strong>Ref#</strong></td>
+                              <td class="text-center"><strong>Activity</strong></td>
+                              <td class="text-center"><strong>Method</strong></td>
+                              <td class="text-center"><strong>Amount</strong></td>
+                              <td class="text-right"><strong>Debited</strong></td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for tran in transactions %}
+                              <tr>
+                                <td>{{tran.id}}</td>
+                                <td><strong>{{tran.action}}</strong></td>
+                                <td class="text-center">{{tran.method}}</td>
+                                <td class="text-center">${{tran.amount}}</td>
+                                <td class="text-right">{{tran.accdebited}}</td>
+                              </tr>
+                            {% endfor %}
+                            <tr>
+                              <td colspan="3">
+                              </td><td class="text-right"><strong>Loan Due</strong></td>
+                              <td class="text-right"><strong>${{loan.balance}}</strong></td>
+                            </tr>
+                            <tr>
+                              <td colspan="3">
+                              </td><td class="text-right"><strong>Account Balance</strong></td>
+                              <td class="text-right"><strong>${{balance}}</strong></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>									
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 text-right identity">
+                        <p>Designer identity<br><strong>African Century</strong></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END INVOICE -->
+            </div>
+  </div>
+</body>
+</html>
